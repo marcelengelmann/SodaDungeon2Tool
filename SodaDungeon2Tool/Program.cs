@@ -41,6 +41,10 @@ namespace SodaDungeon2Tool
                 {
                     ChangeConfiguration(config);
                 }
+                else if(userInput == "3")
+                {
+                    shutDownOnFinish = !shutDownOnFinish;
+                }
                 else if (userInput == "4")
                 {
                     break;
@@ -92,7 +96,7 @@ namespace SodaDungeon2Tool
                         continue;
                     }
                 }
-                else if (userInput == "5")
+                else if (userInput == "4")
                 {
                     config.Save();
                     return;
