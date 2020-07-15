@@ -9,13 +9,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using SodaDungeon2Tool.Utils;
-/*
- * Using Code From:
- * https://ourcodeworld.com/articles/read/195/capturing-screenshots-of-different-ways-with-c-and-winforms
- * https://stackoverflow.com/a/35018042
- * 
- */
-
 
 namespace SodaDungeon2Tool
 {
