@@ -1,4 +1,5 @@
 # SodaDungeon2Tool
+**This tool is NOT an offical tool from the game developer**
 ## Used Code Snippets
 [Screen Capture](https://ourcodeworld.com/articles/read/195/capturing-screenshots-of-different-ways-with-c-and-winforms) By [Carlos Delgado](https://ourcodeworld.com/authors/sdkcarlos)
 <br>
