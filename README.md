@@ -9,6 +9,10 @@
 ## Changelog
 ### 0.0.1
 Initial release
+### 0.0.2
+* Removed checking for the correct resolution of the game
+* Added a Resize mechanic to support different resolutions
+* Changed some displayed text, due to possible confusion
 ## Purpose
 SodaDungeon2Tool, is a Windows Console-Application to notify you when your current Dungeon run has finished.
 It is also able to shutdown your PC after your run completed, if you enable this Setting.
