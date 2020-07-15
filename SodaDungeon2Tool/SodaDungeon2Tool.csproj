@@ -55,5 +55,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Images\mainMenu.png" />
+    <Content Include="Images\running.png" />
+    <Content Include="Images\settingsMenu.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
