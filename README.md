@@ -1,6 +1,6 @@
 # SodaDungeon2Tool
 ## Used Code Snippets
-[Screen Capture](https://ourcodeworld.com/articles/read/195/capturing-screenshots-of-different-ways-with-c-and-winforms)By [Carlos Delgado](https://ourcodeworld.com/authors/sdkcarlos)
+[Screen Capture](https://ourcodeworld.com/articles/read/195/capturing-screenshots-of-different-ways-with-c-and-winforms) By [Carlos Delgado](https://ourcodeworld.com/authors/sdkcarlos)
 <br>
 [Window Focus Handling](https://stackoverflow.com/a/35018042) By [Ivan Yurchenko](https://stackoverflow.com/users/3731444/ivan-yurchenko)
 ## Purpose
