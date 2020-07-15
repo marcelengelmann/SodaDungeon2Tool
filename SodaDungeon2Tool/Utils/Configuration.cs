@@ -48,6 +48,7 @@ namespace SodaDungeon2Tool.Utils
                     WriteToConsole.Error("Could not Read numberOfNotifications. Using default Value!");
                 }
             }
+            Save();
         }
 
         public void Save()
