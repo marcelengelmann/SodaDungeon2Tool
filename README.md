@@ -3,6 +3,9 @@
 [Screen Capture](https://ourcodeworld.com/articles/read/195/capturing-screenshots-of-different-ways-with-c-and-winforms) By [Carlos Delgado](https://ourcodeworld.com/authors/sdkcarlos)
 <br>
 [Window Focus Handling](https://stackoverflow.com/a/35018042) By [Ivan Yurchenko](https://stackoverflow.com/users/3731444/ivan-yurchenko)
+## Changelog
+### 0.0.1
+Initial release
 ## Purpose
 SodaDungeon2Tool, is a Windows Console-Application to notify you when your current Dungeon run has finished.
 It is also able to shutdown your PC after your run completed, if you enable this Setting.
