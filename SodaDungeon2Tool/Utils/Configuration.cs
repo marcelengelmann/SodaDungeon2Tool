@@ -60,7 +60,7 @@ namespace SodaDungeon2Tool.Utils
         public string ToString()
         {
             string notifyCol = (notifyOnFinish) ? "Green" : "Red";
-            return $"SleepTimer in Seconds between each Exit-Button check: #Col:Green#{sleepTimerInSeconds}#\n\tNotify On Finish: #Col:{notifyCol}#{notifyOnFinish}#\n\tNumber of Notifications: #Col:Green#{numberOfNotifications}#";
+            return $"Interval in Seconds between each Exit-Button check: #Col:Green#{sleepTimerInSeconds}#\n\tNotify On Finish: #Col:{notifyCol}#{notifyOnFinish}#\n\tNumber of Notifications: #Col:Green#{numberOfNotifications}#";
         }
     }
 }

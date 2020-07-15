@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -18,13 +19,15 @@ namespace SodaDungeon2Tool
         public static bool shutDownOnFinish = false;
         static void Main(string[] args)
         {
-            sodaGame = Process.GetProcessesByName("SodaDungeon2")[0].MainWindowHandle;
-            while (IsCorrectSize(TakeScreenshot()) == false)
+            //1264x720
+            while (Process.GetProcessesByName("SodaDungeon2").Length < 1)
             {
-                WriteToConsole.Error("Wrong Resolution");
-                WriteToConsole.Text("Please Set the game to the Resolution: #Col:Green#1280x720#, #Col:Red#Disable# Fullscreen and press Enter");
+                WriteToConsole.Error("Could not detect the Game!");
+                WriteToConsole.Text("Please make sure, that the game is running. Press Enter once you have started the game.");
                 Console.ReadLine();
             }
+
+            sodaGame = Process.GetProcessesByName("SodaDungeon2")[0].MainWindowHandle;
             Configuration config = new Configuration();
             config.Save();
             while (true)
@@ -64,7 +67,7 @@ namespace SodaDungeon2Tool
             {
                 WriteToConsole.Text("Current Settings:\n\t" + config.ToString());
                 WriteToConsole.Text("Which Setting would you like to change?");
-                WriteToConsole.Text("\t#Col:Green#1# : SleepTimer\n\t#Col:Green#2# : Notify on finish\n\t#Col:Green#3# : Number of Notifications\n\t#Col:Green#4# : Back to Main Menu");
+                WriteToConsole.Text("\t#Col:Green#1# : Check Interval\n\t#Col:Green#2# : Notify on finish\n\t#Col:Green#3# : Number of Notifications\n\t#Col:Green#4# : Back to Main Menu");
                 string userInput = Console.ReadLine();
                 if (userInput == "1")
                 {
@@ -108,11 +111,6 @@ namespace SodaDungeon2Tool
                 }
                 Console.Clear();
             }
-        }
-
-        private static bool IsCorrectSize(Bitmap image)
-        {
-            return (image.Width == 1264 && image.Height == 720) ? true : false;
         }
 
         private static void RunTool(Configuration config)
@@ -173,7 +171,32 @@ namespace SodaDungeon2Tool
             Window.Restore(sodaGame);
             Bitmap image = ScreenCapture.CaptureWindow(sodaGame);
             if (wasMinimized == true) Window.Minimize(sodaGame);
-            return image;
+            return ResizeImage(image, 1264, 720);
+        }
+
+        public static Bitmap ResizeImage(Image image, int width, int height)
+        {
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
     }
 }
