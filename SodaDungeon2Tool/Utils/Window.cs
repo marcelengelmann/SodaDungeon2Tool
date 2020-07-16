@@ -38,16 +38,29 @@ namespace SodaDungeon2Tool.Utils
             public System.Drawing.Rectangle rcNormalPosition;
         }
 
+        /// <summary>
+        /// Restores a minimized window without setting any focus to it
+        /// </summary>
+        /// <param name="wdwIntPtr">The window-Handler</param>
         public static void Restore(IntPtr wdwIntPtr)
         {
             ShowWindow(wdwIntPtr, ShowWindowEnum.ShowNormalNoActivate);
         }
 
+        /// <summary>
+        /// Minimizes a window
+        /// </summary>
+        /// <param name="wdwIntPtr">The window-Handler</param>
         public static void Minimize(IntPtr wdwIntPtr)
         {
             ShowWindow(wdwIntPtr, ShowWindowEnum.Minimize);
         }
 
+        /// <summary>
+        /// Checks whether a given window is currently minimized
+        /// </summary>
+        /// <param name="wdwIntPtr">The window-Handler</param>
+        /// <returns>true if the givven window is minimized</returns>
         public static bool IsMinimized(IntPtr wdwIntPtr)
         {
             Windowplacement placement = new Windowplacement();

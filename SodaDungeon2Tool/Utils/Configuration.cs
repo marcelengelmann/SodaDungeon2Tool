@@ -7,11 +7,18 @@ using System.Threading.Tasks;
 
 namespace SodaDungeon2Tool.Utils
 {
+    /// <summary>
+    /// Store the current User Configuration
+    /// </summary>
     public class Configuration
     {
         public int sleepTimerInSeconds = 60;
         public bool notifyOnFinish = true;
         public int numberOfNotifications = 3;
+
+        /// <summary>
+        /// Constructor, that loads a local config file and their values, if it exists.
+        /// </summary>
         public Configuration()
         {
             if (File.Exists("config.txt"))
@@ -51,11 +58,18 @@ namespace SodaDungeon2Tool.Utils
             Save();
         }
 
+        /// <summary>
+        /// Save the current configuration in a simple text-file
+        /// </summary>
         public void Save()
         {
             File.WriteAllText("config.txt", $"{sleepTimerInSeconds},{notifyOnFinish},{numberOfNotifications}");
         }
 
+        /// <summary>
+        /// Output String for the Console Application
+        /// </summary>
+        /// <returns></returns>
         override
         public string ToString()
         {

@@ -17,19 +17,18 @@ namespace SodaDungeon2Tool
     {
         public static IntPtr sodaGame;
         public static bool shutDownOnFinish = false;
+
+        /// <summary>
+        /// The Entry function for the Console Application
+        /// </summary>
+        /// <param name="args">Ignored</param>
         static void Main(string[] args)
         {
-            //1264x720
-            while (Process.GetProcessesByName("SodaDungeon2").Length < 1)
-            {
-                WriteToConsole.Error("Could not detect the Game!");
-                WriteToConsole.Text("Please make sure, that the game is running. Press Enter once you have started the game.");
-                Console.ReadLine();
-            }
-
-            sodaGame = Process.GetProcessesByName("SodaDungeon2")[0].MainWindowHandle;
+            
+            sodaGame = Logic.getGameHandler();
             Configuration config = new Configuration();
-            config.Save();
+
+            // The Main Menu
             while (true)
             {
                 WriteToConsole.Text("What would you like to Do? Type the coresponding Number.");
@@ -61,6 +60,7 @@ namespace SodaDungeon2Tool
             }
         }
 
+        // The Settings Menu
         private static void ChangeConfiguration(Configuration config)
         {
             while (true)
@@ -113,13 +113,14 @@ namespace SodaDungeon2Tool
             }
         }
 
+        //Start the tool and check for the Exit Button
         private static void RunTool(Configuration config)
         {
             while (true)
             {
-                Bitmap image = TakeScreenshot();
+                Bitmap image = Logic.TakeScreenshot(sodaGame);
                 string time = DateTime.Now.ToString("t");
-                if (HasExitButton(image))
+                if (Logic.HasExitButton(image))
                 {
                     WriteToConsole.Text($"{time} - The Run #Col:Green#ended!#");
                     if (config.notifyOnFinish == true)
@@ -142,61 +143,6 @@ namespace SodaDungeon2Tool
             }
             WriteToConsole.Text("#Col:Green#Done!# Press any Key to get Back to the Main Menu.");
             Console.ReadKey();
-        }
-
-        private static bool HasExitButton(Bitmap image)
-        {
-            //[A=255, R=44, G=86, B=153] 524, 640
-            Color[] colorFields = new Color[4];
-            Color target = Color.FromArgb(255, 44, 86, 153);
-            
-            colorFields[0] = image.GetPixel(524, 640);
-            colorFields[1] = image.GetPixel(750, 640);
-            colorFields[2] = image.GetPixel(750, 660);
-            colorFields[3] = image.GetPixel(524, 660);
-
-            for (int i = 0; i < 4; i++)
-            {
-                if(colorFields[i].ToArgb() != target.ToArgb())
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        private static Bitmap TakeScreenshot()
-        {
-            bool wasMinimized = Window.IsMinimized(sodaGame);
-            Window.Restore(sodaGame);
-            Bitmap image = ScreenCapture.CaptureWindow(sodaGame);
-            if (wasMinimized == true) Window.Minimize(sodaGame);
-            return ResizeImage(image, 1264, 720);
-        }
-
-        public static Bitmap ResizeImage(Image image, int width, int height)
-        {
-            var destRect = new Rectangle(0, 0, width, height);
-            var destImage = new Bitmap(width, height);
-
-            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
-
-            using (var graphics = Graphics.FromImage(destImage))
-            {
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-                using (var wrapMode = new ImageAttributes())
-                {
-                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
-                }
-            }
-
-            return destImage;
         }
     }
 }
