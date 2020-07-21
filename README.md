@@ -6,6 +6,7 @@
 [Window Focus Handling](https://stackoverflow.com/a/35018042) By [Ivan Yurchenko](https://stackoverflow.com/users/3731444/ivan-yurchenko)
 <br>
 [Image resizing](https://stackoverflow.com/a/24199315) By [mpen](https://stackoverflow.com/users/65387/mpen)
+<br>
 [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md) By [JamesNK](https://github.com/JamesNK)
 ## Changelog
 ### 0.0.3
@@ -27,31 +28,23 @@ Got to the [Releases](https://github.com/Death-Truction/SodaDungeon2Tool/release
 ### Or
 You can Compile the Application yourself using Visual Studio and Run the compiled Application
 ## Usage<br>
-# Out Of Date!
 ### Main Menu
 ![MainMenu](https://raw.githubusercontent.com/Death-Truction/SodaDungeon2Tool/master/Images/mainMenu.png)
-  
-  
+
 Here you can:
 <br>
-* Change the Configuration
-* Start the Tool for Monitoring your Dungeon run
-* Enable the function to shutdown your PC after the current run completed.
+* Change go the Settings
+* Start and stop the Tool for Monitoring your Dungeon run anytime
+* See the latest captured screenshot
 ### Configuration Menu
-![SettingsMenu](https://raw.githubusercontent.com/Death-Truction/SodaDungeon2Tool/master/Images/settingsMenu.png)
+![SettingsMenu](https://raw.githubusercontent.com/Death-Truction/SodaDungeon2Tool/master/Images/Settings.png)
   
   
-Allows you to change the current Configuration. Changes will be saved locally in the config.txt file.
-Available Configuration are:
-* SleepTimer : The delay between each Check, whether your current run is still in progress
+Allows you to change the current Configuration. All changes will be saved locally in the config.txt file and will be used after the current check interval ended.
+Currently available Configuration are:
+* Check Interval : The delay between each Check if the run is still in progress
 * Notify On Finish: Will Notify you with a Beep-Sound, once your current Run finished
-* Number of Notifications: The number of Beep-Sounds you will hear
-### Starting
-![Running](https://raw.githubusercontent.com/Death-Truction/SodaDungeon2Tool/master/Images/running.png)
-  
-  
-Once you started your run, you will see an update for each Check on your run.
-<br>
-Either it is still running and displayed in RED
-<br> Or your run has finished, which will be displayed in GREEN
-
+* Number Of Notifications: The number of Beep-Sounds you will hear
+* Shutdown On Finish: Shuts the computer down when the current run ended
+## How it works
+### 
