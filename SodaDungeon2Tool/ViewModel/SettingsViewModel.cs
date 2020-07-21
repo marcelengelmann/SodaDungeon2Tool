@@ -21,7 +21,7 @@ namespace SodaDungeon2Tool.ViewModel
                     Config.sleepTimerInSeconds = value;
                     Config.Save();
                 }
-                catch (FormatException ex)
+                catch (FormatException)
                 {
                     return;
                 }
@@ -50,7 +50,7 @@ namespace SodaDungeon2Tool.ViewModel
                     Config.numberOfNotifications = value;
                     Config.Save();
                 }
-                catch (FormatException ex)
+                catch (FormatException)
                 {
                     return;
                 }

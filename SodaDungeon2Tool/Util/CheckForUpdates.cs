@@ -63,7 +63,7 @@ namespace SodaDungeon2Tool.Util
 
             try{
                 return  await client.DownloadStringTaskAsync(URL);
-            }catch(Exception ex)
+            }catch(Exception)
             {
                 return "";
             }
