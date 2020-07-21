@@ -50,12 +50,12 @@ namespace SodaDungeon2Tool.Util
 
         public static ImageSource ImageSourceFromBitmap(Bitmap bmp)
         {
-            var handle = bmp.GetHbitmap();
+            IntPtr GDIBitmap = bmp.GetHbitmap();
             try
             {
-                return Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                return Imaging.CreateBitmapSourceFromHBitmap(GDIBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }
-            finally { GDI32.DeleteObject(handle); }
+            finally { GDI32.DeleteObject(GDIBitmap); }
         }
 
         /// <summary>

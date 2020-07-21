@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+#Manual Files
+SodaDungeon2Tool/latestReleaseVersion.txt

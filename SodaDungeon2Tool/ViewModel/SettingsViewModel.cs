@@ -29,6 +29,7 @@ namespace SodaDungeon2Tool.ViewModel
             }
         }
 
+
         public bool NotificationOnFinish
         {
             get { return Config.notifyOnFinish; }
@@ -36,6 +37,24 @@ namespace SodaDungeon2Tool.ViewModel
             {
                 OnPropertyChanged(ref Config.notifyOnFinish, value);
                 Config.Save();
+            }
+        }
+
+        public int NumberOfNotifications
+        {
+            get { return Config.numberOfNotifications; }
+            set
+            {
+                try
+                {
+                    Config.numberOfNotifications = value;
+                    Config.Save();
+                }
+                catch (FormatException ex)
+                {
+                    return;
+                }
+                OnPropertyChanged(ref Config.numberOfNotifications, value);
             }
         }
 

@@ -53,7 +53,7 @@ namespace SodaDungeon2Tool.Util
         /// <param name="wdwIntPtr">The window-Handler</param>
         public static void Minimize(IntPtr wdwIntPtr)
         {
-            ShowWindow(wdwIntPtr, ShowWindowEnum.Minimize);
+            ShowWindow(wdwIntPtr, ShowWindowEnum.ShowMinimized);
         }
 
         /// <summary>

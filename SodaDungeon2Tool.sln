@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SodaDungeon2ToolConsole", "SodaDungeon2ToolConsole\SodaDungeon2ToolConsole.csproj", "{C67F098A-895E-4478-96D7-CC11F6946CDD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SodaDungeon2Tool", "SodaDungeon2Tool\SodaDungeon2Tool.csproj", "{72A1CF8F-90C8-4580-B918-0F689B399AE1}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C67F098A-895E-4478-96D7-CC11F6946CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C67F098A-895E-4478-96D7-CC11F6946CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C67F098A-895E-4478-96D7-CC11F6946CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C67F098A-895E-4478-96D7-CC11F6946CDD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{72A1CF8F-90C8-4580-B918-0F689B399AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72A1CF8F-90C8-4580-B918-0F689B399AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72A1CF8F-90C8-4580-B918-0F689B399AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU

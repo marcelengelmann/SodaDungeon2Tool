@@ -47,6 +47,7 @@ namespace SodaDungeon2Tool.ViewModel
 
         public MainViewModel(ICommand ChangeToSettingsView, Configuration Config)
         {
+            Task.Run(async () => await CheckForUpdates.InformLatestRelease());
             this.ChangeToSettingsView = ChangeToSettingsView;
             StartRunCommand = new RelayCommand(StartStopTimer);
             CheckGameRunningCommand = new RelayCommand(CheckGameRunningButton);
@@ -56,6 +57,9 @@ namespace SodaDungeon2Tool.ViewModel
             CheckGameRunning();
         }
 
+        /// <summary>
+        /// Either Starts the new Timer or Cancles the currently running one
+        /// </summary>
         private async void StartStopTimer()
         {
             if (StopTimer != null)
@@ -73,6 +77,11 @@ namespace SodaDungeon2Tool.ViewModel
             }
         }
 
+        /// <summary>
+        /// Function that will execute in a 1 second interval until it is canceled
+        /// </summary>
+        /// <param name="CT">CancellationToken that can be canceled</param>
+        /// <returns></returns>
         private async Task TimerTick(CancellationToken CT)
         {
             TimeSpan checkInterval = TimeSpan.FromSeconds(Config.sleepTimerInSeconds);
@@ -98,6 +107,9 @@ namespace SodaDungeon2Tool.ViewModel
             }
         }
 
+        /// <summary>
+        /// Checks whether the ExitButton has been found and executes Actions setted inside the Settings
+        /// </summary>
         private void ExitCheck()
         {
             
@@ -112,7 +124,7 @@ namespace SodaDungeon2Tool.ViewModel
                 StartStopTimer();
                 if (Config.notifyOnFinish == true)
                 {
-                    NotifyOnFinish();
+                    Task.Run(() => NotifyOnFinish());
                 }
                 if (Config.ShutdownOnFinish == true)
                 {
@@ -121,6 +133,10 @@ namespace SodaDungeon2Tool.ViewModel
             }
         }
 
+        /// <summary>
+        /// Checks whether the Soda Dungeon 2 Game is currently running
+        /// </summary>
+        /// <returns>The handler of the game process or null if the game is not running</returns>
         private IntPtr? CheckGameRunning()
         {
             IntPtr? sodaGame = Logic.GetGameHandler();
@@ -135,7 +151,7 @@ namespace SodaDungeon2Tool.ViewModel
             return sodaGame;
         }
 
-        //Helperfuntion to allow usage for a relaycommand
+        //Helperfuntion to allow usage for an ICommand Binding with the View
         private void CheckGameRunningButton()
         {
             CheckGameRunning();
@@ -143,8 +159,11 @@ namespace SodaDungeon2Tool.ViewModel
 
         private void NotifyOnFinish()
         {
-            for (int i = 0; i < Config.numberOfNotifications; i++)
+            for (int i = 0; i < Config.numberOfNotifications; i++){
+                Thread.Sleep(300);
                 Console.Beep();
+            }
         }
+
     }
 }
