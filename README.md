@@ -24,7 +24,7 @@ It will check if you current dungeon run has finished and will perform a task th
 <br>
 [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md) By [JamesNK](https://github.com/JamesNK)
 
-##Contributors
+## Contributors
 * [Shilo](https://github.com/Shilo) Thanks for helping with Bug-Fixes
 
 ## Getting Started
