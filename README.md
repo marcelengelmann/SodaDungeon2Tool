@@ -1,18 +1,23 @@
 # SodaDungeon2Tool
 **This tool is NOT an offical tool from the game developer**
-## Used Code Snippets
+## Used Code Snippets And Libraries
 [Screen Capture](https://ourcodeworld.com/articles/read/195/capturing-screenshots-of-different-ways-with-c-and-winforms) By [Carlos Delgado](https://ourcodeworld.com/authors/sdkcarlos)
 <br>
 [Window Focus Handling](https://stackoverflow.com/a/35018042) By [Ivan Yurchenko](https://stackoverflow.com/users/3731444/ivan-yurchenko)
 <br>
 [Image resizing](https://stackoverflow.com/a/24199315) By [mpen](https://stackoverflow.com/users/65387/mpen)
+[Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md) By [JamesNK](https://github.com/JamesNK)
 ## Changelog
-### 0.0.1
-Initial release
+### 0.0.3
+* Removed the Console Application
+* Added a WPF GUI
+* Added a function on Startup to check for a new Release
 ### 0.0.2
 * Removed checking for the correct resolution of the game
 * Added a Resize mechanic to support different resolutions
 * Changed some displayed text, due to possible confusion
+### 0.0.1
+Initial release
 ## Purpose
 SodaDungeon2Tool, is a Windows Console-Application to notify you when your current Dungeon run has finished.
 It is also able to shutdown your PC after your run completed, if you enable this Setting.
@@ -22,6 +27,7 @@ Got to the [Releases](https://github.com/Death-Truction/SodaDungeon2Tool/release
 ### Or
 You can Compile the Application yourself using Visual Studio and Run the compiled Application
 ## Usage<br>
+# Out Of Date!
 ### Main Menu
 ![MainMenu](https://raw.githubusercontent.com/Death-Truction/SodaDungeon2Tool/master/Images/mainMenu.png)
   
