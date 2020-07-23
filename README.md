@@ -1,5 +1,8 @@
 # SodaDungeon2Tool
 **This tool is NOT an offical tool from the game developer**
+## Purpose
+SodaDungeon2Tool, is a Windows-Application for Soda Dungeon 2.
+It will check if you current dungeon run has finished and will perform a task that has been selected in the settings.
 ## Changelog
 ### 0.0.3
 * Removed the Console Application
@@ -11,10 +14,6 @@
 * Changed some displayed text, due to possible confusion
 ### 0.0.1
 Initial release
-## Purpose
-SodaDungeon2Tool, is a Windows-Application for Soda Dungeon 2.
-It will check if you current dungeon run has finished and will perform a task that has been selected in the settings.
-
 ## Used Code Snippets And Libraries
 [Screen Capture](https://ourcodeworld.com/articles/read/195/capturing-screenshots-of-different-ways-with-c-and-winforms) By [Carlos Delgado](https://ourcodeworld.com/authors/sdkcarlos)
 <br>
@@ -25,8 +24,12 @@ It will check if you current dungeon run has finished and will perform a task th
 [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md) By [JamesNK](https://github.com/JamesNK)
 
 ## Contributors
-* [Shilo](https://github.com/Shilo) Thanks for helping with Bug-Fixes
-
+* [Shilo](https://github.com/Shilo) 
+  * Helping with Bug-Fixes
+  * Redesigned some of the UI
+  <br>
+**Thank You!**
+<br>
 ## Getting Started
 ### Either
 Go to the [Releases](https://github.com/Death-Truction/SodaDungeon2Tool/releases) Page, download the latest release and run it.
