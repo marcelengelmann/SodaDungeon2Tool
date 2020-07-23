@@ -62,10 +62,12 @@ namespace SodaDungeon2Tool.ViewModel
         /// <summary>
         /// Either Starts the new Timer or Cancles the currently running one
         /// </summary>
-        private async void StartStopTimer()
+        public async void StartStopTimer()
         {
             if (StopTimer != null)
             {
+                if(Logic.soundIsPlaying)
+                    Logic.MediaEnded(null, true);
                 StopTimer.Cancel();
                 StopTimer = null;
                 StartStopButtonText = "Start";
@@ -91,7 +93,8 @@ namespace SodaDungeon2Tool.ViewModel
             while (true)
             {
                 checkInterval = checkInterval.Add(TimeSpan.FromSeconds(-1));
-                TimerText = checkInterval.ToString("c");
+                if(Logic.soundIsPlaying == false) // only update when notification is not playing -> no exit has been found
+                    TimerText = checkInterval.ToString("c");
                 if (checkInterval.TotalSeconds <= 0)
                 {
                     ExitCheck();
@@ -121,10 +124,9 @@ namespace SodaDungeon2Tool.ViewModel
 
             Bitmap image = Logic.TakeScreenshot((IntPtr)sodaGame);
             ScreenshotImage = ScreenCapture.ImageSourceFromBitmap(image);
-            if (!Logic.HasExitButton(image))
+            if (Logic.HasExitButton(image))
             {
-                Logic.ExitButtonFound(image, Config);
-                StartStopTimer();
+                Logic.ExitButtonFound(image, Config, StartStopTimer);
             }
         }
 
@@ -146,7 +148,7 @@ namespace SodaDungeon2Tool.ViewModel
             return sodaGame;
         }
 
-        //Helperfuntion to allow usage for an ICommand Binding with the View
+        //Helperfuntions to allow usage for an ICommand Binding with the View
         private void CheckGameRunningButton()
         {
             CheckGameRunning();

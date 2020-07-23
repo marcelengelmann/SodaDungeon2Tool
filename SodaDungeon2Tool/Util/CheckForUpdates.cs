@@ -30,7 +30,11 @@ namespace SodaDungeon2Tool.Util
         public static async Task InformLatestRelease()
         {
             string releasesURL = "https://api.github.com/repos/Death-Truction/SodaDungeon2Tool/releases";
-            string allReleases = await DownloadAsString(releasesURL);
+            string allReleases;
+            allReleases = await DownloadAsString(releasesURL);
+            if(allReleases == "") //e.g. happens when api quota reached
+                return;
+
             Release latestRelease = JsonConvert.DeserializeObject<List<Release>>(allReleases)[0];          
 
             Assembly assembly = Assembly.GetExecutingAssembly();
