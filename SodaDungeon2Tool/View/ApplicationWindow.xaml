@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Soda Dungeon 2 Tool"
         MinHeight="450" MinWidth="800"
-        Height="450" Width="800">
+        Height="720" Width="1264">
     <Window.DataContext>
         <vm:ApplicationViewModel />
     </Window.DataContext>

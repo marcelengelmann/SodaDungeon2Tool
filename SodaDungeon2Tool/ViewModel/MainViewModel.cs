@@ -19,6 +19,7 @@ namespace SodaDungeon2Tool.ViewModel
         private readonly Configuration Config;
         private string _timerText;
         private string _startStopButtonText;
+        private string _startStopButtonImage;
         private bool _showGameNotFoundError;
         private CancellationTokenSource StopTimer;
         private ImageSource _screenshotImage;
@@ -41,6 +42,12 @@ namespace SodaDungeon2Tool.ViewModel
             set { OnPropertyChanged(ref _startStopButtonText, value); }
         }
 
+        public string StartStopButtonImage
+        {
+            get { return _startStopButtonImage; }
+            set { OnPropertyChanged(ref _startStopButtonImage, value); }
+        }
+
         public bool ShowGameNotFoundError
         {
             get { return _showGameNotFoundError; }
@@ -54,8 +61,11 @@ namespace SodaDungeon2Tool.ViewModel
             StartRunCommand = new RelayCommand(StartStopTimer);
             CheckGameRunningCommand = new RelayCommand(CheckGameRunningButton);
             this.Config = Config;
+
+            ScreenshotImage = ScreenCapture.ImageSourceFromBitmap(Properties.Resources.background);
             TimerText = "00:00:00";
             StartStopButtonText = "Start";
+            StartStopButtonImage = "/Resources/Start.png";
             CheckGameRunning();
         }
 
@@ -68,12 +78,15 @@ namespace SodaDungeon2Tool.ViewModel
             {
                 StopTimer.Cancel();
                 StopTimer = null;
+                ScreenshotImage = ScreenCapture.ImageSourceFromBitmap(Properties.Resources.background);
                 StartStopButtonText = "Start";
+                StartStopButtonImage = "/Resources/Start.png";
                 TimerText = "00:00:00";
             }
             else
             {
                 StartStopButtonText = "Stop";
+                StartStopButtonImage = "/Resources/Stop.png";
                 StopTimer = new CancellationTokenSource();
                 await TimerTick(StopTimer.Token);
             }
@@ -121,7 +134,7 @@ namespace SodaDungeon2Tool.ViewModel
 
             Bitmap image = Logic.TakeScreenshot((IntPtr)sodaGame);
             ScreenshotImage = ScreenCapture.ImageSourceFromBitmap(image);
-            if (!Logic.HasExitButton(image))
+            if (Logic.HasExitButton(image))
             {
                 Logic.ExitButtonFound(image, Config);
                 StartStopTimer();

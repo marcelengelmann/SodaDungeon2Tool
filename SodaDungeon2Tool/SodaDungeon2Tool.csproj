@@ -121,6 +121,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Fonts\8BIT-WONDER.TTF" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -128,7 +129,20 @@
   <ItemGroup>
     <Resource Include="Resources\defaultNotification.mp3" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\settings_sd2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\start_sd2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\settings.png" />
+    <Resource Include="Resources\Start.png" />
+    <Resource Include="Resources\Stop.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
   </PropertyGroup>
