@@ -1,4 +1,5 @@
-﻿using SodaDungeon2Tool.Model;
+﻿using Microsoft.Win32;
+using SodaDungeon2Tool.Model;
 using SodaDungeon2Tool.Util;
 using System;
 using System.Text.RegularExpressions;
@@ -10,7 +11,7 @@ namespace SodaDungeon2Tool.ViewModel
     {
         private Configuration Config;
         public ICommand ChangeToMainView { get; private set; }
-        public ICommand PlayTestSoundCommand { get; private set; }
+        public ICommand OpenFilePickerCommand {get; private set;}
 
         public int CheckIntervalText
         {
@@ -89,16 +90,29 @@ namespace SodaDungeon2Tool.ViewModel
             }
         }
 
+        public int NotificationVolume
+        {
+            get { return Config.notificationSoundVolume; }
+            set 
+            {
+                OnPropertyChanged(ref Config.notificationSoundVolume, value);
+                LocalDataService.SaveConfiguration(Config);
+            }
+        }
+
         public SettingsViewModel(ICommand ChangeToMainView, Configuration Config)
         {
             this.ChangeToMainView = ChangeToMainView;
             this.Config = Config;
-            this.PlayTestSoundCommand = new RelayCommand(PlayTestSound);
+            this.OpenFilePickerCommand = new RelayCommand(OpenFilePicker);
         }
 
-        public void PlayTestSound()
+        private void OpenFilePicker()
         {
-            Logic.NotifyOnFinish(Config.notificationSoundFileLocation, 1, Config.notificationSoundVolume);
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|WAV files (*.wav)|*.wav";
+			if(openFileDialog.ShowDialog() == true)
+				NotificationSoundFilePath = openFileDialog.FileName;
         }
     }
 }

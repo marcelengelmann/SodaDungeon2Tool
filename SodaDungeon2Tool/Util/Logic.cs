@@ -1,4 +1,6 @@
 ﻿using SodaDungeon2Tool.Model;
+using SodaDungeon2Tool.View;
+using SodaDungeon2Tool.ViewModel;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -13,7 +15,7 @@ namespace SodaDungeon2Tool.Util
     public static class Logic
     {
         private static System.Windows.Media.MediaPlayer player = new System.Windows.Media.MediaPlayer();
-        private static bool soundIsPlaying = false;
+        public static bool soundIsPlaying = false;
         private static int remainingNotifications;
 
         /// <summary>
@@ -71,6 +73,7 @@ namespace SodaDungeon2Tool.Util
             return ResizeImage(image, 1264, 720);
         }
 
+
         /// <summary>
         /// Resize an image to a specific resolution
         /// </summary>
@@ -103,11 +106,15 @@ namespace SodaDungeon2Tool.Util
             return destImage;
         }
 
-        public static void ExitButtonFound(Bitmap image, Configuration config)
+        public static void ExitButtonFound(Bitmap image, Configuration config, Action StartStopTimer)
         {
             if (config.notifyOnFinish == true)
             {
-                new Thread(() => NotifyOnFinish(config.notificationSoundFileLocation, config.numberOfNotifications, config.notificationSoundVolume));
+                NotifyOnFinish(config.notificationSoundFileLocation, config.numberOfNotifications, config.notificationSoundVolume, StartStopTimer);
+            }
+            else
+            {
+               StartStopTimer();
             }
             if(config.saveLastScreenshot == true)
             {
@@ -119,7 +126,7 @@ namespace SodaDungeon2Tool.Util
             }
         }
 
-        public static void NotifyOnFinish(string soundFilePath, int numberOfNotifications, int volume)
+        public static void NotifyOnFinish(string soundFilePath, int numberOfNotifications, int volume, Action StartStopTimer)
         {
             if(soundIsPlaying)
                 return;
@@ -134,23 +141,28 @@ namespace SodaDungeon2Tool.Util
                 player.Open(new Uri(outputPath));
             }
             player.Volume = volume / 100.0f;
-            remainingNotifications = numberOfNotifications;
-            player.MediaEnded += (sender, e) => MediaEnded();
+            player.MediaEnded += (sender, e) => MediaEnded(StartStopTimer);
             soundIsPlaying = true;
+            remainingNotifications = numberOfNotifications -1;
             player.Play();
         }
 
-        private static void MediaEnded()
+        public static void MediaEnded(Action StartStopTimer, bool forceStop = false)
         {
-            if(remainingNotifications > 0)
+            if(remainingNotifications > 0 && forceStop == false)
             {
                 remainingNotifications--;
+                player.Stop();
+                Thread.Sleep(300);
                 player.Play();
             }
             else
             {
-                soundIsPlaying = false;
                 player.Close();
+                soundIsPlaying = false;
+                player = new System.Windows.Media.MediaPlayer(); // doesn't work otherwise?
+                if(StartStopTimer != null)
+                    StartStopTimer();
             }
         }
     }
