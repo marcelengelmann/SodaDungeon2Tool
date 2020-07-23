@@ -1,13 +1,21 @@
-﻿using System;
+﻿using SodaDungeon2Tool.Model;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace SodaDungeon2Tool.Util
 {
     public static class Logic
     {
+        private static System.Windows.Media.MediaPlayer player = new System.Windows.Media.MediaPlayer();
+        private static bool soundIsPlaying = false;
+        private static int remainingNotifications;
+
         /// <summary>
         /// Get the Game-Handler to be able to capture the screen of the correct process
         /// </summary>
@@ -93,6 +101,57 @@ namespace SodaDungeon2Tool.Util
             }
 
             return destImage;
+        }
+
+        public static void ExitButtonFound(Bitmap image, Configuration config)
+        {
+            if (config.notifyOnFinish == true)
+            {
+                new Thread(() => NotifyOnFinish(config.notificationSoundFileLocation, config.numberOfNotifications, config.notificationSoundVolume));
+            }
+            if(config.saveLastScreenshot == true)
+            {
+                image.Save("LastRunEndScreen.jpg", ImageFormat.Jpeg);
+            }
+            if (config.shutdownOnFinish == true)
+            {
+                Process.Start("shutdown", "/s /t 0");
+            }
+        }
+
+        public static void NotifyOnFinish(string soundFilePath, int numberOfNotifications, int volume)
+        {
+            if(soundIsPlaying)
+                return;
+            try
+            {
+                player.Open(new Uri(soundFilePath));
+            }
+            catch (UriFormatException) //file not found
+            {
+                string outputPath = Directory.GetCurrentDirectory() + "\\defaultNotification.mp3";
+                File.WriteAllBytes(outputPath, Properties.Resources.defaultNotification);
+                player.Open(new Uri(outputPath));
+            }
+            player.Volume = volume / 100.0f;
+            remainingNotifications = numberOfNotifications;
+            player.MediaEnded += (sender, e) => MediaEnded();
+            soundIsPlaying = true;
+            player.Play();
+        }
+
+        private static void MediaEnded()
+        {
+            if(remainingNotifications > 0)
+            {
+                remainingNotifications--;
+                player.Play();
+            }
+            else
+            {
+                soundIsPlaying = false;
+                player.Close();
+            }
         }
     }
 }

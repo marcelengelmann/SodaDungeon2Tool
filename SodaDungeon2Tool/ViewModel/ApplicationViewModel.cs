@@ -1,4 +1,5 @@
-﻿using SodaDungeon2Tool.Util;
+﻿using SodaDungeon2Tool.Model;
+using SodaDungeon2Tool.Util;
 using System.Windows.Input;
 
 namespace SodaDungeon2Tool.ViewModel
@@ -31,7 +32,7 @@ namespace SodaDungeon2Tool.ViewModel
 
         public ApplicationViewModel()
         {
-            Configuration Config = new Configuration();
+            Configuration Config = LocalDataService.LoadConfiguration();
             ChangeToSettingsViewCommand = new RelayCommand(ChangeToSettingsView);
             ChangeToMainViewCommand = new RelayCommand(ChangeToMainView);
             MainVM = new MainViewModel(ChangeToSettingsViewCommand, Config);

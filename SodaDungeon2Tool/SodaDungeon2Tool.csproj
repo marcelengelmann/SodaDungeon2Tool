@@ -60,7 +60,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Util\CheckForUpdates.cs" />
-    <Compile Include="Util\Configuration.cs" />
+    <Compile Include="Model\Configuration.cs" />
+    <Compile Include="Util\LocalDataService.cs" />
     <Compile Include="Util\Logic.cs" />
     <Compile Include="Util\ObservableObject.cs" />
     <Compile Include="Util\RelayCommand.cs" />
@@ -125,8 +126,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
+    <Resource Include="Resources\defaultNotification.mp3" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
   </PropertyGroup>
@@ -157,8 +159,7 @@ copy "$(SolutionDir)\ThirdPartyNotice.md" "$(TargetDir)\ThirdPartyNotice.md" /Y
 cd "$(TargetDir)"
 del *.pdb 2&gt;NUL
 del *.xml 2&gt;NUL
-del *.config 2&gt;NUL
-tar  --exclude "*.zip" -cf "$(SolutionDir)..\$(TargetName)-@(VersionNumber).zip" *
+7z a -x!*.zip  -tzip "$(SolutionDir)..\$(TargetName)-@(VersionNumber).zip" * 
 move "$(SolutionDir)..\$(TargetName)-@(VersionNumber).zip" "$(TargetDir)$(TargetName)-@(VersionNumber).zip"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>

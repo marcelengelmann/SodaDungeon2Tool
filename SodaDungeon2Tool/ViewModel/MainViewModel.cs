@@ -1,7 +1,9 @@
-﻿using SodaDungeon2Tool.Util;
+﻿using SodaDungeon2Tool.Model;
+using SodaDungeon2Tool.Util;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -117,19 +119,12 @@ namespace SodaDungeon2Tool.ViewModel
             if (sodaGame == null)
                 return;
 
-            Bitmap Image = Logic.TakeScreenshot((IntPtr)sodaGame);
-            ScreenshotImage = ScreenCapture.ImageSourceFromBitmap(Image);
-            if (Logic.HasExitButton(Image))
+            Bitmap image = Logic.TakeScreenshot((IntPtr)sodaGame);
+            ScreenshotImage = ScreenCapture.ImageSourceFromBitmap(image);
+            if (!Logic.HasExitButton(image))
             {
+                Logic.ExitButtonFound(image, Config);
                 StartStopTimer();
-                if (Config.notifyOnFinish == true)
-                {
-                    Task.Run(() => NotifyOnFinish());
-                }
-                if (Config.ShutdownOnFinish == true)
-                {
-                    Process.Start("shutdown", "/s /t 0");
-                }
             }
         }
 
@@ -155,14 +150,6 @@ namespace SodaDungeon2Tool.ViewModel
         private void CheckGameRunningButton()
         {
             CheckGameRunning();
-        }
-
-        private void NotifyOnFinish()
-        {
-            for (int i = 0; i < Config.numberOfNotifications; i++){
-                Thread.Sleep(300);
-                Console.Beep();
-            }
         }
 
     }

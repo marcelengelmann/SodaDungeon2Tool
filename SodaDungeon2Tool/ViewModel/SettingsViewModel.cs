@@ -1,4 +1,5 @@
-﻿using SodaDungeon2Tool.Util;
+﻿using SodaDungeon2Tool.Model;
+using SodaDungeon2Tool.Util;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -8,8 +9,8 @@ namespace SodaDungeon2Tool.ViewModel
     public class SettingsViewModel : ObservableObject
     {
         private Configuration Config;
-        private readonly Regex CheckIntervalRegex = new Regex("[^0-9]+");
         public ICommand ChangeToMainView { get; private set; }
+        public ICommand PlayTestSoundCommand { get; private set; }
 
         public int CheckIntervalText
         {
@@ -19,7 +20,7 @@ namespace SodaDungeon2Tool.ViewModel
                 try
                 {
                     Config.sleepTimerInSeconds = value;
-                    Config.Save();
+                    LocalDataService.SaveConfiguration(Config);
                 }
                 catch (FormatException)
                 {
@@ -36,7 +37,7 @@ namespace SodaDungeon2Tool.ViewModel
             set
             {
                 OnPropertyChanged(ref Config.notifyOnFinish, value);
-                Config.Save();
+                LocalDataService.SaveConfiguration(Config);
             }
         }
 
@@ -48,7 +49,7 @@ namespace SodaDungeon2Tool.ViewModel
                 try
                 {
                     Config.numberOfNotifications = value;
-                    Config.Save();
+                    LocalDataService.SaveConfiguration(Config);
                 }
                 catch (FormatException)
                 {
@@ -60,11 +61,31 @@ namespace SodaDungeon2Tool.ViewModel
 
         public bool ShutdownOnFinish
         {
-            get { return Config.ShutdownOnFinish; }
+            get { return Config.shutdownOnFinish; }
             set
             {
-                OnPropertyChanged(ref Config.ShutdownOnFinish, value);
-                Config.Save();
+                OnPropertyChanged(ref Config.shutdownOnFinish, value);
+                LocalDataService.SaveConfiguration(Config);
+            }
+        }
+        
+        public bool SaveLastScreenshot
+        {
+            get { return Config.saveLastScreenshot; }
+            set
+            {
+                OnPropertyChanged(ref Config.saveLastScreenshot, value);
+                LocalDataService.SaveConfiguration(Config);
+            }
+        }
+
+        public string NotificationSoundFilePath
+        {
+            get { return Config.notificationSoundFileLocation;}
+            set
+            {
+                OnPropertyChanged(ref Config.notificationSoundFileLocation, value);
+                LocalDataService.SaveConfiguration(Config);
             }
         }
 
@@ -72,6 +93,12 @@ namespace SodaDungeon2Tool.ViewModel
         {
             this.ChangeToMainView = ChangeToMainView;
             this.Config = Config;
+            this.PlayTestSoundCommand = new RelayCommand(PlayTestSound);
+        }
+
+        public void PlayTestSound()
+        {
+            Logic.NotifyOnFinish(Config.notificationSoundFileLocation, 1, Config.notificationSoundVolume);
         }
     }
 }
