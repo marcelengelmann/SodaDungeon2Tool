@@ -3,4 +3,5 @@
 [Window Focus Handling](https://stackoverflow.com/a/35018042) By [Ivan Yurchenko](https://stackoverflow.com/users/3731444/ivan-yurchenko)
 <br>
 [Image resizing](https://stackoverflow.com/a/24199315) By [mpen](https://stackoverflow.com/users/65387/mpen)
+<br>
 [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md) By [JamesNK](https://github.com/JamesNK)
