@@ -9,7 +9,6 @@ namespace SodaDungeon2Tool.ValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Console.WriteLine(value);
             bool isTrue = (bool)value;
             if (isTrue == true)
                 return Visibility.Visible;

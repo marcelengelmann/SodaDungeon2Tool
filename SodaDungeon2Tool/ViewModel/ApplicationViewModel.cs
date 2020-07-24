@@ -1,6 +1,7 @@
 ﻿using SodaDungeon2Tool.Model;
 using SodaDungeon2Tool.Util;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 
@@ -39,7 +40,7 @@ namespace SodaDungeon2Tool.ViewModel
             Configuration Config = LocalDataService.LoadConfiguration();
             ChangeToSettingsViewCommand = new RelayCommand(ChangeToSettingsView);
             ChangeToMainViewCommand = new RelayCommand(ChangeToMainView);
-            MainVM = new MainViewModel(ChangeToSettingsViewCommand, Config);
+            MainVM = new MainViewModel(ChangeToSettingsViewCommand, Config, getVersionNumber());
             SettingsVM = new SettingsViewModel(ChangeToMainViewCommand, Config);
             CurrentView = MainVM;
         }
@@ -61,6 +62,13 @@ namespace SodaDungeon2Tool.ViewModel
         private void ChangeToSettingsView()
         {
             CurrentView = SettingsVM;
+        }
+
+        private string getVersionNumber()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            return fvi.FileVersion;
         }
     }
 }

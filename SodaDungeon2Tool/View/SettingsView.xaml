@@ -24,61 +24,61 @@
             <RowDefinition Height="2*" />
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
-        <Label Grid.Column="1" Grid.Row="0" Content="Check Interval" HorizontalContentAlignment="Left" VerticalAlignment="Center"/>
+        <Label Grid.Column="1" Grid.Row="0" Content="Check Interval" HorizontalContentAlignment="Left" VerticalAlignment="Center" />
         <TextBox Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" Text="{Binding CheckIntervalText, ValidatesOnExceptions=True}" ToolTipService.InitialShowDelay="50">
             <TextBox.ToolTip>
                 <StackPanel>
-                    <TextBlock Text="Interval in seconds, to check if the run ended"/>
-                    <TextBlock Text="Only numbers allowed"/>
-                </StackPanel>
-            </TextBox.ToolTip>
-        </TextBox>
-        
-        <Label Grid.Column="1" Grid.Row="1" Content="Number of Notifications" HorizontalContentAlignment="Left" VerticalAlignment="Center" />
-        <TextBox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" Text="{Binding NumberOfNotifications}"  ToolTipService.InitialShowDelay="50">
-            <TextBox.ToolTip>
-                <StackPanel>
-                    <TextBlock Text="Number of notification-sounds once a run ended"/>
-                    <TextBlock Text="Only numbers allowed"/>
+                    <TextBlock Text="Interval in seconds, to check if the run ended" />
+                    <TextBlock Text="Only numbers allowed" />
                 </StackPanel>
             </TextBox.ToolTip>
         </TextBox>
 
-        <Label Grid.Column="1" Grid.Row="2" Content="Max notification sound duration" HorizontalContentAlignment="Left" VerticalAlignment="Center" />
+        <Label Grid.Column="1" Grid.Row="1" Content="Number of Notifications" HorizontalContentAlignment="Left" VerticalAlignment="Center" />
+        <TextBox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" Text="{Binding NumberOfNotifications}"  ToolTipService.InitialShowDelay="50">
+            <TextBox.ToolTip>
+                <StackPanel>
+                    <TextBlock Text="Number of notification-sounds once a run ended" />
+                    <TextBlock Text="Only numbers allowed" />
+                </StackPanel>
+            </TextBox.ToolTip>
+        </TextBox>
+
+        <Label Grid.Column="1" Grid.Row="2" Content="Notification On Finish" HorizontalContentAlignment="Left" VerticalAlignment="Center" />
         <CheckBox  Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding NotificationOnFinish}"  ToolTipService.InitialShowDelay="50">
             <CheckBox.ToolTip>
                 <StackPanel>
-                    <TextBlock Text="The maximum duration the notification sound should be played in seconds."/>
+                    <TextBlock Text="Play a Notification Sound when the current run ended." />
                 </StackPanel>
             </CheckBox.ToolTip>
         </CheckBox>
-        
+
         <Label Grid.Column="1" Grid.Row="3" Content="Shutdown on Finish" HorizontalContentAlignment="Left" VerticalAlignment="Center" />
         <CheckBox  Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"  IsChecked="{Binding ShutdownOnFinish}"  ToolTipService.InitialShowDelay="50">
             <CheckBox.ToolTip>
                 <StackPanel>
-                    <TextBlock Text=""/>
+                    <TextBlock Text="Enables shutting down the Computer once the run ended." />
                 </StackPanel>
             </CheckBox.ToolTip>
         </CheckBox>
-        
+
         <Label Grid.Column="1" Grid.Row="4" Content="Save Endscreen as Image" HorizontalContentAlignment="Left" VerticalAlignment="Center" />
         <CheckBox  Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center"  IsChecked="{Binding SaveLastScreenshot}"  ToolTipService.InitialShowDelay="50">
             <CheckBox.ToolTip>
                 <StackPanel>
-                    <TextBlock Text="Save the endscreen of a run as LastRunEndScreen.jpg"/>
+                    <TextBlock Text="Save the endscreen of a run as LastRunEndScreen.jpg" />
                 </StackPanel>
             </CheckBox.ToolTip>
         </CheckBox>
-        
+
         <Label Grid.Column="1" Grid.Row="5" Content="Change Notification Soundfile" HorizontalContentAlignment="Left" VerticalAlignment="Center" />
-        <TextBox Grid.Column="2" Grid.Row="5" IsEnabled="False"  Text="{Binding NotificationSoundFilePath}" Height="30" VerticalContentAlignment="Center"/>
+        <TextBox Grid.Column="2" Grid.Row="5" IsEnabled="False"  Text="{Binding NotificationSoundFilePath}" Height="30" VerticalContentAlignment="Center" />
         <Button Grid.Column="3" Grid.Row="5" Content="Change" Height="30" HorizontalAlignment="Center" Command="{Binding OpenFilePickerCommand}" />
-        
+
         <Label Grid.Column="1" Grid.Row="6" Content="Change Notification Volume" HorizontalContentAlignment="Left" VerticalAlignment="Center" />
-        <Slider Grid.Column="2" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Center" Minimum="1" Maximum="100" Value="{Binding NotificationVolume}"/>
-        <Label Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="{Binding NotificationVolume}"/>
-        
-        <Button Grid.Column="4" Grid.Row="7" Content="Back" Command="{Binding ChangeToMainView}"/>
+        <Slider Grid.Column="2" Grid.Row="6" HorizontalAlignment="Stretch" VerticalAlignment="Center" Minimum="1" Maximum="100" Value="{Binding NotificationVolume}" />
+        <Label Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="{Binding NotificationVolume}" />
+
+        <Button Grid.Column="4" Grid.Row="7" Content="Back" Command="{Binding ChangeToMainView}" />
     </Grid>
 </UserControl>

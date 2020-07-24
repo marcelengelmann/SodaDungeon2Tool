@@ -7,14 +7,48 @@
              xmlns:vc="clr-namespace:SodaDungeon2Tool.ValueConverter"
              StartupUri="View/ApplicationWindow.xaml">
     <Application.Resources>
-        <!--Binding ViewModels to Views-->
+        <!-- Binding ViewModels to Views -->
         <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
             <v:SettingsView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:MainViewModel}">
             <v:MainView />
         </DataTemplate>
-        <!--Value Converter-->
+        <!-- Value Converter -->
         <vc:BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+        <!-- Fonts -->
+        <FontFamily x:Key="MainMenuFont">
+            pack://aplication:,,,/Resources/Fonts/#carbon
+        </FontFamily>
+        <!-- Images -->
+        <BitmapImage x:Key="BlueButtonClicked" UriSource="pack://application:,,,/Resources/Images/BlueButtonClicked.png" />
+        <BitmapImage x:Key="BlueButtonHover" UriSource="pack://application:,,,/Resources/Images/BlueButtonHover.png" />
+        <BitmapImage x:Key="BlueButtonNormal" UriSource="pack://application:,,,/Resources/Images/BlueButtonNormal.png" />
+        <BitmapImage x:Key="WarningButton" UriSource="pack://application:,,,/Resources/Images/warning.png" />
+        <!-- Styles -->
+
+        <!-- Main View Buttons -->
+        <Style x:Key="MainMenuButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Image Name="ButtonImage" Source="{StaticResource BlueButtonNormal}" />
+                            <Label Margin="0 0 0 5" Content="{TemplateBinding Content}" Foreground="White" FontFamily="{StaticResource MainMenuFont}" FontSize="22" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- Button Actions -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonImage" Property="Source" Value="{StaticResource BlueButtonHover}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonImage" Property="Source" Value="{StaticResource BlueButtonClicked}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

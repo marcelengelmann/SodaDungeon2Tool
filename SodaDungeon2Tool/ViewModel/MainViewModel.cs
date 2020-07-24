@@ -1,9 +1,7 @@
 ﻿using SodaDungeon2Tool.Model;
 using SodaDungeon2Tool.Util;
 using System;
-using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,7 +12,7 @@ namespace SodaDungeon2Tool.ViewModel
     public class MainViewModel : ObservableObject
     {
         public ICommand ChangeToSettingsView { get; private set; }
-        public ICommand StartRunCommand { get; private set; }
+        public RelayCommand StartRunCommand { get; private set; }
         public ICommand CheckGameRunningCommand { get; private set; }
         private readonly Configuration Config;
         private string _timerText;
@@ -23,6 +21,9 @@ namespace SodaDungeon2Tool.ViewModel
         private bool _showGameNotFoundError;
         private CancellationTokenSource StopTimer;
         private ImageSource _screenshotImage;
+        private bool _showVersionNumber;
+
+        public string VersionNumber { get; private set; }
 
         public ImageSource ScreenshotImage
         {
@@ -54,41 +55,56 @@ namespace SodaDungeon2Tool.ViewModel
             set { OnPropertyChanged(ref _showGameNotFoundError, value); }
         }
 
-        public MainViewModel(ICommand ChangeToSettingsView, Configuration Config)
+        public bool ShowVersionNumber
         {
-            Task.Run(async () => await CheckForUpdates.InformLatestRelease());
+            get { return _showVersionNumber; }
+            set { OnPropertyChanged(ref _showVersionNumber, value); }
+        }
+
+        public bool ShowShutdownWarning
+        {
+            get { return Config.shutdownOnFinish; }
+        }
+
+        public MainViewModel(ICommand ChangeToSettingsView, Configuration Config, string currentVersion)
+        {
+            Task.Run(async () => await CheckForUpdates.InformLatestRelease(currentVersion));
             this.ChangeToSettingsView = ChangeToSettingsView;
-            StartRunCommand = new RelayCommand(StartStopTimer);
+            StartRunCommand = new RelayCommand(() => StartStopTimer(true));
             CheckGameRunningCommand = new RelayCommand(CheckGameRunningButton);
             this.Config = Config;
-
+            ShowVersionNumber = true;
+            VersionNumber = "Version " + currentVersion;
             ScreenshotImage = ScreenCapture.ImageSourceFromBitmap(Properties.Resources.background);
             TimerText = "00:00:00";
             StartStopButtonText = "Start";
-            StartStopButtonImage = "/Resources/Start.png";
             CheckGameRunning();
         }
 
         /// <summary>
         /// Either Starts the new Timer or Cancles the currently running one
         /// </summary>
-        public async void StartStopTimer()
+        public async void StartStopTimer(bool canceledEarly = false)
         {
             if (StopTimer != null)
             {
-                if(Logic.soundIsPlaying)
+                if (Logic.soundIsPlaying)
                     Logic.MediaEnded(null, true);
                 StopTimer.Cancel();
                 StopTimer = null;
-                ScreenshotImage = ScreenCapture.ImageSourceFromBitmap(Properties.Resources.background);
+                if (canceledEarly == true)
+                {
+                    ScreenshotImage = ScreenCapture.ImageSourceFromBitmap(Properties.Resources.background);
+                    ShowVersionNumber = true;
+                }
+
                 StartStopButtonText = "Start";
-                StartStopButtonImage = "/Resources/Start.png";
                 TimerText = "00:00:00";
             }
             else
             {
+                ShowVersionNumber = false;
                 StartStopButtonText = "Stop";
-                StartStopButtonImage = "/Resources/Stop.png";
                 StopTimer = new CancellationTokenSource();
                 await TimerTick(StopTimer.Token);
             }
@@ -106,7 +122,7 @@ namespace SodaDungeon2Tool.ViewModel
             while (true)
             {
                 checkInterval = checkInterval.Add(TimeSpan.FromSeconds(-1));
-                if(Logic.soundIsPlaying == false) // only update when notification is not playing -> no exit has been found
+                if (Logic.soundIsPlaying == false) // only update when notification is not playing -> no exit has been found
                     TimerText = checkInterval.ToString("c");
                 if (checkInterval.TotalSeconds <= 0)
                 {
@@ -130,7 +146,6 @@ namespace SodaDungeon2Tool.ViewModel
         /// </summary>
         private void ExitCheck()
         {
-            
             IntPtr? sodaGame = CheckGameRunning();
             if (sodaGame == null)
                 return;
@@ -166,6 +181,5 @@ namespace SodaDungeon2Tool.ViewModel
         {
             CheckGameRunning();
         }
-
     }
 }

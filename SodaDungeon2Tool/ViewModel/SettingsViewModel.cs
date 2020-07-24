@@ -2,7 +2,6 @@
 using SodaDungeon2Tool.Model;
 using SodaDungeon2Tool.Util;
 using System;
-using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 namespace SodaDungeon2Tool.ViewModel
@@ -11,7 +10,7 @@ namespace SodaDungeon2Tool.ViewModel
     {
         private Configuration Config;
         public ICommand ChangeToMainView { get; private set; }
-        public ICommand OpenFilePickerCommand {get; private set;}
+        public ICommand OpenFilePickerCommand { get; private set; }
 
         public int CheckIntervalText
         {
@@ -30,7 +29,6 @@ namespace SodaDungeon2Tool.ViewModel
                 OnPropertyChanged(ref Config.sleepTimerInSeconds, value);
             }
         }
-
 
         public bool NotificationOnFinish
         {
@@ -69,7 +67,7 @@ namespace SodaDungeon2Tool.ViewModel
                 LocalDataService.SaveConfiguration(Config);
             }
         }
-        
+
         public bool SaveLastScreenshot
         {
             get { return Config.saveLastScreenshot; }
@@ -82,7 +80,7 @@ namespace SodaDungeon2Tool.ViewModel
 
         public string NotificationSoundFilePath
         {
-            get { return Config.notificationSoundFileLocation;}
+            get { return Config.notificationSoundFileLocation; }
             set
             {
                 OnPropertyChanged(ref Config.notificationSoundFileLocation, value);
@@ -93,7 +91,7 @@ namespace SodaDungeon2Tool.ViewModel
         public int NotificationVolume
         {
             get { return Config.notificationSoundVolume; }
-            set 
+            set
             {
                 OnPropertyChanged(ref Config.notificationSoundVolume, value);
                 LocalDataService.SaveConfiguration(Config);
@@ -111,8 +109,8 @@ namespace SodaDungeon2Tool.ViewModel
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|WAV files (*.wav)|*.wav";
-			if(openFileDialog.ShowDialog() == true)
-				NotificationSoundFilePath = openFileDialog.FileName;
+            if (openFileDialog.ShowDialog() == true)
+                NotificationSoundFilePath = openFileDialog.FileName;
         }
     }
 }

@@ -1,13 +1,10 @@
 ﻿using SodaDungeon2Tool.Model;
-using SodaDungeon2Tool.View;
-using SodaDungeon2Tool.ViewModel;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace SodaDungeon2Tool.Util
@@ -73,7 +70,6 @@ namespace SodaDungeon2Tool.Util
             return ResizeImage(image, 1264, 720);
         }
 
-
         /// <summary>
         /// Resize an image to a specific resolution
         /// </summary>
@@ -106,7 +102,7 @@ namespace SodaDungeon2Tool.Util
             return destImage;
         }
 
-        public static void ExitButtonFound(Bitmap image, Configuration config, Action StartStopTimer)
+        public static void ExitButtonFound(Bitmap image, Configuration config, Action<bool> StartStopTimer)
         {
             if (config.notifyOnFinish == true)
             {
@@ -114,9 +110,9 @@ namespace SodaDungeon2Tool.Util
             }
             else
             {
-               StartStopTimer();
+                StartStopTimer(false);
             }
-            if(config.saveLastScreenshot == true)
+            if (config.saveLastScreenshot == true)
             {
                 image.Save("LastRunEndScreen.jpg", ImageFormat.Jpeg);
             }
@@ -126,9 +122,9 @@ namespace SodaDungeon2Tool.Util
             }
         }
 
-        public static void NotifyOnFinish(string soundFilePath, int numberOfNotifications, int volume, Action StartStopTimer)
+        public static void NotifyOnFinish(string soundFilePath, int numberOfNotifications, int volume, Action<bool> StartStopTimer)
         {
-            if(soundIsPlaying)
+            if (soundIsPlaying)
                 return;
             try
             {
@@ -143,13 +139,13 @@ namespace SodaDungeon2Tool.Util
             player.Volume = volume / 100.0f;
             player.MediaEnded += (sender, e) => MediaEnded(StartStopTimer);
             soundIsPlaying = true;
-            remainingNotifications = numberOfNotifications -1;
+            remainingNotifications = numberOfNotifications - 1;
             player.Play();
         }
 
-        public static void MediaEnded(Action StartStopTimer, bool forceStop = false)
+        public static void MediaEnded(Action<bool> StartStopTimer, bool forceStop = false)
         {
-            if(remainingNotifications > 0 && forceStop == false)
+            if (remainingNotifications > 0 && forceStop == false)
             {
                 remainingNotifications--;
                 player.Stop();
@@ -161,8 +157,8 @@ namespace SodaDungeon2Tool.Util
                 player.Close();
                 soundIsPlaying = false;
                 player = new System.Windows.Media.MediaPlayer(); // doesn't work otherwise?
-                if(StartStopTimer != null)
-                    StartStopTimer();
+                if (StartStopTimer != null)
+                    StartStopTimer(false);
             }
         }
     }
