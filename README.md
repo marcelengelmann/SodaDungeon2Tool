@@ -54,7 +54,7 @@ You can Compile the Application yourself using Visual Studio and Run the compile
 
 Here you can:
 <br>
-* Change go the Settings
+* Go to the Settings
 * Start and stop the Tool for Monitoring your Dungeon run anytime
 * See the latest captured screenshot
 ### Configuration Menu
@@ -67,5 +67,7 @@ Currently available Configuration are:
 * Notify On Finish: Will Notify you with a Beep-Sound, once your current Run finished
 * Number Of Notifications: The number of Beep-Sounds you will hear
 * Shutdown On Finish: Shuts the computer down when the current run ended
+* Notification Sound: Change the notification sound
+* Notification Volume: Edit the voume of the notification sound
 ## How it works
 ![HowItWorks](https://raw.githubusercontent.com/Death-Truction/SodaDungeon2Tool/master/Images/HowItWorks.png)
