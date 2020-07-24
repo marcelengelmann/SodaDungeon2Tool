@@ -4,14 +4,27 @@
 SodaDungeon2Tool, is a Windows-Application for Soda Dungeon 2.
 It will check if you current dungeon run has finished and will perform a task that has been selected in the settings.
 ## Changelog
+### 0.0.4
+#### Enhancments
+* Reworked the Main menu GUI Design
+* Improved the functionallity of saving the settings
+* Added more options inside the Settings menu
+  * the Endscreen of a run can now be saved locally as an .jpg image
+  * The notification sound can be changed
+  * the volume of the notification sound can be changed
+#### Fixes
+* Fixed a bug where the shutdown setting was not applied
+---
 ### 0.0.3
 * Removed the Console Application
 * Added a WPF GUI
 * Added a function on Startup to check for a new Release
+---
 ### 0.0.2
 * Removed checking for the correct resolution of the game
 * Added a Resize mechanic to support different resolutions
 * Changed some displayed text, due to possible confusion
+---
 ### 0.0.1
 Initial release
 ## Used Code Snippets And Libraries
