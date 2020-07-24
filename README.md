@@ -55,4 +55,4 @@ Currently available Configuration are:
 * Number Of Notifications: The number of Beep-Sounds you will hear
 * Shutdown On Finish: Shuts the computer down when the current run ended
 ## How it works
-### 
+![HowItWorks](https://raw.githubusercontent.com/Death-Truction/SodaDungeon2Tool/master/Images/HowItWorks.png)
