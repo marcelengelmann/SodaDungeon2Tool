@@ -26,7 +26,7 @@ namespace SodaDungeon2Tool.Util
             if (File.Exists(FilePath))
             {
                 string content = File.ReadAllText(FilePath);
-                config = JsonConvert.DeserializeObject<Configuration>(content, new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Error });
+                config = JsonConvert.DeserializeObject<Configuration>(content);
             }
             else
                 config = new Configuration();

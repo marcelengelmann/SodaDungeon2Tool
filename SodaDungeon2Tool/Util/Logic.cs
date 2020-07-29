@@ -1,11 +1,13 @@
 ﻿using SodaDungeon2Tool.Model;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
+using System.Windows.Documents;
 
 namespace SodaDungeon2Tool.Util
 {
@@ -65,6 +67,7 @@ namespace SodaDungeon2Tool.Util
         {
             bool wasMinimized = Window.IsMinimized(sodaGame);
             Window.Restore(sodaGame);
+            Thread.Sleep(10);
             Bitmap image = ScreenCapture.CaptureWindow(sodaGame);
             if (wasMinimized == true) Window.Minimize(sodaGame);
             return ResizeImage(image, 1264, 720);
@@ -111,10 +114,6 @@ namespace SodaDungeon2Tool.Util
             else
             {
                 StartStopTimer(false);
-            }
-            if (config.saveLastScreenshot == true)
-            {
-                image.Save("LastRunEndScreen.jpg", ImageFormat.Jpeg);
             }
             if (config.shutdownOnFinish == true)
             {

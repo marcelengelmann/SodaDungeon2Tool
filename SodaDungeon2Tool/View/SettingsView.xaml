@@ -62,14 +62,16 @@
             </CheckBox.ToolTip>
         </CheckBox>
 
-        <Label Grid.Column="1" Grid.Row="4" Content="Save Endscreen as Image" HorizontalContentAlignment="Left" VerticalAlignment="Center" />
-        <CheckBox  Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center"  IsChecked="{Binding SaveLastScreenshot}"  ToolTipService.InitialShowDelay="50">
-            <CheckBox.ToolTip>
+        <Label Grid.Column="1" Grid.Row="4" Content="Save X last images" HorizontalContentAlignment="Left" VerticalAlignment="Center" />
+        <TextBox  Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Height="30" Text="{Binding SaveLastXScreenshots}"  ToolTipService.InitialShowDelay="50">
+            <TextBox.ToolTip>
                 <StackPanel>
-                    <TextBlock Text="Save the endscreen of a run as LastRunEndScreen.jpg" />
+                    <TextBlock Text="Save the last X images of the latest run on finish." />
+                    <TextBlock Text="Set to 1 to save only the endscreen image."/>
+                    <TextBlock Text="Will only effect the after pressing Start again!"/>
                 </StackPanel>
-            </CheckBox.ToolTip>
-        </CheckBox>
+            </TextBox.ToolTip>
+        </TextBox>
 
         <Label Grid.Column="1" Grid.Row="5" Content="Change Notification Soundfile" HorizontalContentAlignment="Left" VerticalAlignment="Center" />
         <TextBox Grid.Column="2" Grid.Row="5" IsEnabled="False"  Text="{Binding NotificationSoundFilePath}" Height="30" VerticalContentAlignment="Center" />

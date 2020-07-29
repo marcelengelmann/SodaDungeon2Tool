@@ -36,7 +36,6 @@
         <!-- Version Number Display-->
         <Label Content="{Binding VersionNumber}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="{Binding ShowVersionNumber, Converter={StaticResource BooleanToVisibility}}" FontFamily="{StaticResource MainMenuFont}" FontSize="32" />
 
-		<!-- Game not running error
         <Grid Grid.RowSpan="2" Background="White" Visibility="{Binding ShowGameNotFoundError, Converter={StaticResource BooleanToVisibility}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
@@ -44,6 +43,6 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Game Not Found!" Foreground="Red" FontSize="32" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
             <Button Grid.Row="1" Content="Retry" Width="100" Height="50" FontSize="32" VerticalAlignment="Top" HorizontalAlignment="Center" Command="{Binding CheckGameRunningCommand}" />
-        </Grid>-->
+        </Grid>
     </Grid>
 </UserControl>

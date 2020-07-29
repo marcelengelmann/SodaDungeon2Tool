@@ -1,6 +1,7 @@
 ﻿using SodaDungeon2Tool.Model;
 using SodaDungeon2Tool.Util;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace SodaDungeon2Tool.ViewModel
         private CancellationTokenSource StopTimer;
         private ImageSource _screenshotImage;
         private bool _showVersionNumber;
+        private Screenshots screenshots;
 
         public string VersionNumber { get; private set; }
 
@@ -100,12 +102,14 @@ namespace SodaDungeon2Tool.ViewModel
 
                 StartStopButtonText = "Start";
                 TimerText = "00:00:00";
+                screenshots = null;
             }
             else
             {
                 ShowVersionNumber = false;
                 StartStopButtonText = "Stop";
                 StopTimer = new CancellationTokenSource();
+                screenshots = new Screenshots(Config.saveLastXScreenshots);
                 await TimerTick(StopTimer.Token);
             }
         }
@@ -149,11 +153,19 @@ namespace SodaDungeon2Tool.ViewModel
             IntPtr? sodaGame = CheckGameRunning();
             if (sodaGame == null)
                 return;
-
-            Bitmap image = Logic.TakeScreenshot((IntPtr)sodaGame);
+            Bitmap image;
+            try{
+                image = Logic.TakeScreenshot((IntPtr)sodaGame);
+            }
+            catch (System.Runtime.InteropServices.ExternalException)
+            {
+                return;
+            }
             ScreenshotImage = ScreenCapture.ImageSourceFromBitmap(image);
+            screenshots.Add(image);
             if (Logic.HasExitButton(image))
             {
+                screenshots.Save();
                 Logic.ExitButtonFound(image, Config, StartStopTimer);
             }
         }

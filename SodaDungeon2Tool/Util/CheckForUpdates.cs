@@ -10,7 +10,7 @@ namespace SodaDungeon2Tool.Util
 {
     public static class CheckForUpdates
     {
-        internal class Release
+        public class Release
         {
             public string Html_Url { get; set; }
             public string Tag_Name { get; set; }

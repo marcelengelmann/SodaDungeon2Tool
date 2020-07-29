@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Screenshots.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -176,6 +177,8 @@ copy "$(SolutionDir)\ThirdPartyNotice.md" "$(TargetDir)\ThirdPartyNotice.md" /Y
 cd "$(TargetDir)"
 del *.pdb 2&gt;NUL
 del *.xml 2&gt;NUL
+del *.config 2&gt;NUL
+del *.json 2&gt;NUL
 7z a -x!*.zip  -tzip "$(SolutionDir)..\$(TargetName)-@(VersionNumber).zip" * 
 move "$(SolutionDir)..\$(TargetName)-@(VersionNumber).zip" "$(TargetDir)$(TargetName)-@(VersionNumber).zip"</PostBuildEvent>
   </PropertyGroup>

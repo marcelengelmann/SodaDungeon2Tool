@@ -68,12 +68,12 @@ namespace SodaDungeon2Tool.ViewModel
             }
         }
 
-        public bool SaveLastScreenshot
+        public int SaveLastXScreenshots
         {
-            get { return Config.saveLastScreenshot; }
+            get { return Config.saveLastXScreenshots; }
             set
             {
-                OnPropertyChanged(ref Config.saveLastScreenshot, value);
+                OnPropertyChanged(ref Config.saveLastXScreenshots, value);
                 LocalDataService.SaveConfiguration(Config);
             }
         }

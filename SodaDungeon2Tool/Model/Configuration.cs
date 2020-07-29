@@ -24,10 +24,6 @@ namespace SodaDungeon2Tool.Model
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         public int numberOfNotifications = 3;
 
-        [DefaultValue(false)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
-        public bool saveLastScreenshot = false;
-
         [DefaultValue("Default")]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         public string notificationSoundFileLocation = "Default";
@@ -35,6 +31,10 @@ namespace SodaDungeon2Tool.Model
         [DefaultValue(50)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         public int notificationSoundVolume = 50;
+
+        [DefaultValue(1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+        public int saveLastXScreenshots = 1;
 
         /// <summary>
         /// Default constructor
@@ -47,15 +47,15 @@ namespace SodaDungeon2Tool.Model
         /// Contructor for loading the local Json file
         /// </summary>
         [JsonConstructor]
-        public Configuration(int sleepTimerInSeconds, bool notifyOnFinish, bool shutdownOnFinish, int numberOfNotifications, bool saveLastScreenshot, string soundFileLocation, int notificationSoundVolume)
+        public Configuration(int sleepTimerInSeconds, bool notifyOnFinish, bool shutdownOnFinish, int numberOfNotifications, string notificationSoundFileLocation, int notificationSoundVolume, int saveLastXScreenshots)
         {
             this.sleepTimerInSeconds = sleepTimerInSeconds;
             this.notifyOnFinish = notifyOnFinish;
             this.shutdownOnFinish = shutdownOnFinish;
             this.numberOfNotifications = numberOfNotifications;
-            this.saveLastScreenshot = saveLastScreenshot;
-            this.notificationSoundFileLocation = soundFileLocation;
+            this.notificationSoundFileLocation = notificationSoundFileLocation;
             this.notificationSoundVolume = notificationSoundVolume;
+            this.saveLastXScreenshots = saveLastXScreenshots;
         }
     }
 }
